@@ -11,11 +11,13 @@
 <body>
 
 
-    <ul class="ul-list">
-       
-    </ul>
+    
 
    <div class="container mt-5">
+
+    <ul id="msg-list">
+       
+    </ul>
 
     <div class="input-group w-50 mx-auto">
         <input id="inputValue" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="button-addon2">
@@ -33,12 +35,22 @@
 
   const chatMethod=()=>{
 
-      const inputValue = document.getElementById('inputValue').value;
+      let inputValue = document.getElementById('inputValue').value;
       console.log(inputValue);
 
-      socket.emit('chat', inputValue);
-      
+      socket.emit('chat', inputValue);  
+      document.getElementById('inputValue').value="";
   }
+
+  socket.on('client_chat_show',(data)=>{
+
+    const msgList =document.getElementById('msg-list');
+
+        const listItem = document.createElement('li');
+        listItem.textContent=data;
+
+        msgList.appendChild(listItem);
+  })
 
 
 
